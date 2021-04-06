@@ -5,7 +5,7 @@ async function main(){
      * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
      * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
      */
-    const uri = "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.9klct.mongodb.net/myFirstDatabasetest?retryWrites=true&w=majority";
+    const uri = "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.maym3.mongodb.net/myFirstDatabasetest?retryWrites=true&w=majority";
  
 
     const client = new MongoClient(uri);
@@ -13,7 +13,13 @@ async function main(){
     try {
         // Connect to the MongoDB cluster
         await client.connect();
- 
+        const database = client.db("Chapter4");
+        const collection = database.collection("sample");
+
+        const res = await collection.deleteMany();
+
+        console.log(res)
+
         // Make the appropriate DB calls
         await  listDatabases(client);
  
@@ -32,3 +38,4 @@ async function listDatabases(client){
     console.log("Databases:");
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 };
+
